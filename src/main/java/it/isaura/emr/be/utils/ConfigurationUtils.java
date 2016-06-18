@@ -49,5 +49,13 @@ public class ConfigurationUtils {
         return configuration.get("url.directions.google");
     }
 
+    public static String getMongoHost(){
+        return configuration.get("mongo.host");
+    }
+
+    public static Integer getMongoPort(){
+        return Integer.valueOf(configuration.get("mongo.port"));
+    }
+
 
 }

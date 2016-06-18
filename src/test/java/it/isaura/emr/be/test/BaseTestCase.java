@@ -4,6 +4,8 @@ import it.isaura.emr.be.data.DirectionsDataClient;
 import it.isaura.emr.be.data.EmrDataClient;
 import it.isaura.emr.be.data.EmrLazioDataClient;
 import it.isaura.emr.be.data.GoogleDirectionsDataClient;
+import it.isaura.emr.be.persistence.mongo.MongoPersistenceManager;
+import it.isaura.emr.be.persistence.mongo.MongoSession;
 import it.isaura.emr.be.utils.ConfigurationUtils;
 import it.isaura.emr.be.utils.GeneralUtils;
 import junit.framework.TestCase;
@@ -75,6 +77,15 @@ public class BaseTestCase extends TestCase {
         String directions = directionsDataClient.getDirections(ConfigurationUtils.getGoogleApi(),"Firenze","Prato");
         logger.info("directions "+ GeneralUtils.prettyJson(directions));
         Assert.assertNotNull(directions);
+    }
+
+    @Test
+    public void testStartupMongo(){
+        final  Logger logger = LogManager.getLogger("Test");
+        logger.info("startup mongo");
+        MongoPersistenceManager mongoPersistenceManager = MongoPersistenceManager.getInstance();
+        MongoSession mongoSession = mongoPersistenceManager.createSession(ConfigurationUtils.getMongoHost(),ConfigurationUtils.getMongoPort());
+        Assert.assertNotNull(mongoSession);
     }
 
 
