@@ -2,6 +2,7 @@ package it.isaura.emr.be.test;
 
 import it.isaura.emr.be.data.EmrDataClient;
 import it.isaura.emr.be.data.EmrLazioDataClient;
+import it.isaura.emr.be.utils.ConfigurationUtils;
 import it.isaura.emr.be.utils.GeneralUtils;
 import junit.framework.TestCase;
 import org.apache.logging.log4j.LogManager;
@@ -30,9 +31,9 @@ public class BaseTestCase extends TestCase {
     }
 
     private String getUrlLazio() {
-        Configuration cfg = ConfigurationProvider.getConfiguration();
-        assertNotNull(cfg);
-        return GeneralUtils.getUrlLazio();
+        String urlLazio = ConfigurationUtils.getUrlLazio();
+        assertNotNull(urlLazio);
+        return urlLazio;
     }
 
     @Test
@@ -40,7 +41,7 @@ public class BaseTestCase extends TestCase {
         final  Logger logger = LogManager.getLogger("Test");
         logger.info("retrieve data");
         EmrDataClient emrDataClient = new EmrLazioDataClient();
-        String response = emrDataClient.getData(GeneralUtils.getUrlLazio());
+        String response = emrDataClient.getData(ConfigurationUtils.getUrlLazio());
         logger.info("response "+ GeneralUtils.prettyJson(response));
         Assert.assertNotNull(response);
     }
@@ -50,8 +51,19 @@ public class BaseTestCase extends TestCase {
         final  Logger logger = LogManager.getLogger("Test");
         logger.info("retrieve data limit");
         EmrDataClient emrDataClient = new EmrLazioDataClient();
-        String response = emrDataClient.getData(GeneralUtils.getUrlLazio(),1);
+        String response = emrDataClient.getData(ConfigurationUtils.getUrlLazio(),1);
         logger.info("response "+ GeneralUtils.prettyJson(response));
         Assert.assertNotNull(response);
     }
+
+    @Test
+    public void testApiKey(){
+        final  Logger logger = LogManager.getLogger("Test");
+        logger.info("google api key");
+        String googleKey = ConfigurationUtils.getGoogleKey();
+        logger.info("google api key "+googleKey);
+        assertNotNull(googleKey);
+    }
+
+
 }

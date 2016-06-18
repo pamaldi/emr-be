@@ -23,9 +23,6 @@ public class GeneralUtils {
     }
 
 
-    public static String getUrlLazio(){
-            Configuration cfg = ConfigurationProvider.getConfiguration();
-            return cfg.get("url.dati.emr.lazio");
-    }
+
 
 }
