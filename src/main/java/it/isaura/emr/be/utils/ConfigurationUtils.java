@@ -45,5 +45,9 @@ public class ConfigurationUtils {
         return configuration.get("google-api-key");
     }
 
+    public static String getGoogleApi() {
+        return configuration.get("url.directions.google");
+    }
+
 
 }

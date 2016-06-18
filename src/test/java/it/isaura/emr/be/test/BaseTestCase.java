@@ -1,7 +1,9 @@
 package it.isaura.emr.be.test;
 
+import it.isaura.emr.be.data.DirectionsDataClient;
 import it.isaura.emr.be.data.EmrDataClient;
 import it.isaura.emr.be.data.EmrLazioDataClient;
+import it.isaura.emr.be.data.GoogleDirectionsDataClient;
 import it.isaura.emr.be.utils.ConfigurationUtils;
 import it.isaura.emr.be.utils.GeneralUtils;
 import junit.framework.TestCase;
@@ -63,6 +65,16 @@ public class BaseTestCase extends TestCase {
         String googleKey = ConfigurationUtils.getGoogleKey();
         logger.info("google api key "+googleKey);
         assertNotNull(googleKey);
+    }
+
+    @Test
+    public void testGoogleDirections(){
+        final  Logger logger = LogManager.getLogger("Test");
+        logger.info("google directions ");
+        DirectionsDataClient directionsDataClient = new GoogleDirectionsDataClient();
+        String directions = directionsDataClient.getDirections(ConfigurationUtils.getGoogleApi(),"Firenze","Prato");
+        logger.info("directions "+ GeneralUtils.prettyJson(directions));
+        Assert.assertNotNull(directions);
     }
 
 

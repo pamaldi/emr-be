@@ -18,12 +18,8 @@ public class EmrLazioDataClient implements EmrDataClient {
     final Logger logger = LogManager.getLogger("EmrDataClientLazio");
 
     public String getData(String url) {
-        Client client = ClientBuilder.newClient();
-        WebTarget myResource = client.target(url);
-        logger.debug("url "+url);
-        String response = myResource.request(MediaType.APPLICATION_JSON)
-                .get(String.class);
-        return response;
+        BaseJsonClient baseJsonClient = new BaseJsonClient();
+        return baseJsonClient.call(url);
     }
 
     public String getData(String url, Integer limit) {
