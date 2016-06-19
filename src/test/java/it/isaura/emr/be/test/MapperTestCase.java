@@ -14,7 +14,7 @@ import org.junit.Test;
 /**
  * Created by pasquale on 19/06/2016.
  */
-public class MapperTestCase extends TestCase {
+public class MapperTestCase extends TestUtil {
 
     final Logger logger = LogManager.getLogger("MapperTestCase");
 
@@ -28,39 +28,25 @@ public class MapperTestCase extends TestCase {
         logger.debug("mapper "+mapper.getClass());
     }
 
-    private EmrDepartmentMapper getEmrDepartmentMapper() {
-        EmrDepartmentMapper mapper = null;
-        try {
-            mapper = EmrDepartmentMapperFactory.getInstance().getMapper(EmrDepartmentMapperLazio.class.getName());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-        return mapper;
-    }
-
 
 
 
     @Test
     public void testMapObjectLazio(){
         logger.debug("testMapObjectLazio");
-        EmrDepartmentMapper mapper = getEmrDepartmentMapper();
-        assertNotNull(mapper);
-        assertEquals(EmrDepartmentMapperLazio.class,mapper.getClass());
-        logger.debug("mapper "+mapper.getClass());
-        EmrDataClient emrDataClient = new EmrLazioDataClient();
-        String response = emrDataClient.getData(ConfigurationUtils.getUrlLazio());
-        try {
-            mapper.mapFromJson(response);
-            logger.debug("deps size "+mapper.getEmrDepartmentList().size());
-            assertTrue(mapper.getEmrDepartmentList().size() > 0);
-            logger.debug(mapper.getEmrDepartmentList());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        EmrDepartmentMapper mapper = getEmrDepartmentMapperList();
+        logger.debug("deps size "+mapper.getEmrDepartmentList().size());
+        assertTrue(mapper.getEmrDepartmentList().size() > 0);
+        logger.debug(mapper.getEmrDepartmentList());
     }
 
 
 
+    @Test
+    public void testInsertMongoEmrDepartmentList(){
+        logger.debug("testInsertMongoEmrDepartmentList");
+        EmrDepartmentMapper mapper = getEmrDepartmentMapper();
+
+    }
 
 }

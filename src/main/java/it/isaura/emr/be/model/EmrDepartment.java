@@ -1,5 +1,7 @@
 package it.isaura.emr.be.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * Created by pasquale on 19/06/2016.
  */
@@ -82,4 +84,6 @@ public class EmrDepartment {
                 ", cap='" + cap + '\'' +
                 '}';
     }
+
+
 }

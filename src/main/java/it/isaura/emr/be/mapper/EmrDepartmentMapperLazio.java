@@ -33,13 +33,14 @@ public class EmrDepartmentMapperLazio implements EmrDepartmentMapper {
 
     private void buildEmrDepartment() {
         emrDepartmentBuilder = new EmrDepartmentLazioBuilder();
-        EmrDepartment emrDepartement = new EmrDepartment();
+        EmrDepartment emrDepartement = null;
         ArrayList records = (ArrayList)((Map)map.get("result")).get("records");
         Iterator i = records.iterator();
         Map record = null;
         emrDepartmentList = new ArrayList<EmrDepartment>();
         while(i.hasNext()) {
             record = (Map)i.next();
+            emrDepartement = new EmrDepartment();
             emrDepartmentBuilder.buildAddressInfo(emrDepartement, record);
             emrDepartmentBuilder.buildCodeDescription(emrDepartement, record);
             emrDepartmentList.add(emrDepartement);

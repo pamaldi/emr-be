@@ -49,5 +49,13 @@ public class ConfigurationUtils {
         return Integer.valueOf(configuration.get("mongo.port"));
     }
 
+    public static String getMongoDB() {
+        return configuration.get("mongo.db");
+    }
+
+    public static String getMongoLazioSnapAddresses() {
+        return configuration.get("mongo.snap.lazio.addresses");
+    }
+
 
 }
