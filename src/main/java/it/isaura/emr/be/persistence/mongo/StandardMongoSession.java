@@ -10,11 +10,11 @@ public class StandardMongoSession implements MongoSession {
     private MongoClient mongoClient = null;
 
     public boolean setUp(String host, Integer port) {
-         mongoClient = new MongoClient( host , port );
-         return true;
+        mongoClient = new MongoClient(host, port);
+        return true;
     }
 
-    public boolean release(){
+    public boolean release() {
         this.mongoClient = null;
         return true;
     }

@@ -5,6 +5,6 @@ package it.isaura.emr.be.persistence.mongo;
  */
 public interface MongoSession {
 
- public boolean setUp(String host, Integer port);
+    public boolean setUp(String host, Integer port);
 
 }

@@ -17,21 +17,20 @@ import java.util.Properties;
  */
 public class MySimplePropertySource extends BasePropertySource {
     public static final String CONFIG_PROPERTIES_LOCATION = "META-INF/application.properties";
-    private Map<String,String> props = new HashMap<String,String>();
     final static Logger logger = LogManager.getLogger("Configuration");
+    private Map<String, String> props = new HashMap<String, String>();
 
     public MySimplePropertySource() throws IOException {
         URL url = ClassLoader.getSystemClassLoader().getResource(CONFIG_PROPERTIES_LOCATION);
         Properties properties = new Properties();
 
-        try{
+        try {
             InputStream is = url.openStream();
             properties.load(is);
-        }catch (IOException e){
+        } catch (IOException e) {
             logger.error("Error reading configuration ");
-        }
-        finally{
-            for(Map.Entry en: properties.entrySet()){
+        } finally {
+            for (Map.Entry en : properties.entrySet()) {
                 props.put(en.getKey().toString(), en.getValue().toString());
             }
             props = Collections.unmodifiableMap(props);

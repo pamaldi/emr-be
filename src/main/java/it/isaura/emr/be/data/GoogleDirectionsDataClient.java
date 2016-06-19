@@ -4,11 +4,6 @@ import it.isaura.emr.be.utils.ConfigurationUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-
 /**
  * Created by pasquale on 18/06/2016.
  */

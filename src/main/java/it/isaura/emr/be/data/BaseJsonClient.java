@@ -15,10 +15,10 @@ public class BaseJsonClient {
 
     final Logger logger = LogManager.getLogger("JSonClient");
 
-    public String call (String url){
+    public String call(String url) {
         Client client = ClientBuilder.newClient();
         WebTarget myResource = client.target(url);
-        logger.debug("url "+url);
+        logger.debug("url " + url);
         String response = myResource.request(MediaType.APPLICATION_JSON)
                 .get(String.class);
         return response;

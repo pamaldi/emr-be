@@ -1,15 +1,13 @@
 package it.isaura.emr.be.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tamaya.Configuration;
-import org.apache.tamaya.ConfigurationProvider;
 
 /**
  * Created by pasquale on 18/06/2016.
  */
 public class GeneralUtils {
 
-    public static String prettyJson(String s){
+    public static String prettyJson(String s) {
         String ret = null;
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -21,8 +19,6 @@ public class GeneralUtils {
         }
         return ret;
     }
-
-
 
 
 }
