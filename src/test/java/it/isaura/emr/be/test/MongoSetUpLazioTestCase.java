@@ -3,7 +3,9 @@ package it.isaura.emr.be.test;
 import com.mongodb.client.MongoCursor;
 import it.isaura.emr.be.data.EmrDataClient;
 import it.isaura.emr.be.data.EmrLazioDataClient;
+import it.isaura.emr.be.mapper.EmrAccessMapper;
 import it.isaura.emr.be.mapper.EmrDepartmentMapper;
+import it.isaura.emr.be.model.EmrAccessInfo;
 import it.isaura.emr.be.model.EmrDepartment;
 import it.isaura.emr.be.persistence.mongo.MongoPersistenceManager;
 import it.isaura.emr.be.persistence.mongo.MongoSession;
@@ -58,6 +60,29 @@ public class MongoSetUpLazioTestCase extends TestUtil {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+
+    }
+
+
+    @Test
+    public void testCreateCollectionEmrLazioAccess(){
+        logger.debug("createCollectionEmrLazioAccess");
+        EmrAccessMapper emrAccessMapperList = getEmrAccessMapper();
+        MongoPersistenceManager mongoPersistenceManager = MongoPersistenceManager.getInstance();
+        MongoSession mongoSession = mongoPersistenceManager.createSession(ConfigurationUtils.getMongoHost(),ConfigurationUtils.getMongoPort());
+        assertNotNull(mongoSession);
+        try {
+            Iterator<EmrAccessInfo> iterator = emrAccessMapperList.getEmrAccessInfoList().iterator();
+            EmrAccessInfo  next = null;
+            while(iterator.hasNext()) {
+                next = iterator.next();
+                //mongoSession.insert(ConfigurationUtils.getMongoDB(), ConfigurationUtils.getMongoLazioSnapAddresses(), next);
+            }
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+
 
     }
 

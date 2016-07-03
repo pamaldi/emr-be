@@ -25,7 +25,7 @@ public class EmrDepartmentMapperLazio implements EmrDepartmentMapper {
 
     @Override
     public void mapFromJson(String jsonString) throws Exception {
-        logger.debug("mapper for lazio");
+        logger.debug("mapper for lazio ");
         buildObjectMap(jsonString);
         buildEmrDepartment();
 
