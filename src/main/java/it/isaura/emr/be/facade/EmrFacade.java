@@ -1,24 +1,30 @@
-package it.isaura.emr.be.test;
+package it.isaura.emr.be.facade;
 
 import it.isaura.emr.be.data.EmrDataClient;
 import it.isaura.emr.be.data.EmrLazioDataClient;
 import it.isaura.emr.be.mapper.*;
 import it.isaura.emr.be.utils.ConfigurationUtils;
-import junit.framework.TestCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Test;
 
 /**
- * Created by pasquale on 19/06/2016.
+ * Created by pasquale on 04/07/2016.
  */
-public class TestUtil extends TestCase {
+public class EmrFacade {
 
-    final Logger logger = LogManager.getLogger("TestUtil");
 
-    @Test
-    public void test(){
-        assertTrue(true);
+    private static EmrFacade instance;
+    final Logger logger = LogManager.getLogger("EmrFacade");
+
+    private EmrFacade(){
+
+    }
+
+    public static EmrFacade getInstance(){
+        if(instance == null){
+            instance = new EmrFacade();
+        }
+        return instance;
     }
 
     protected EmrDepartmentMapper getEmrDepartmentMapper() {
@@ -26,7 +32,7 @@ public class TestUtil extends TestCase {
         try {
             mapper = EmrDepartmentMapperFactory.getInstance().getMapper(EmrDepartmentMapperLazio.class.getName());
         } catch (Exception e) {
-            fail(e.getMessage());
+            logger.error("Error "+e.getMessage());
         }
         return mapper;
     }
@@ -37,21 +43,19 @@ public class TestUtil extends TestCase {
         try {
             mapper = EmrAccessMapperFactory.getInstance().getMapper(EmrAccessMapperLazio.class.getName());
         } catch (Exception e) {
-            fail(e.getMessage());
+            logger.error("Error "+e.getMessage());
         }
         return mapper;
     }
 
-    protected EmrDepartmentMapper getEmrDepartmentMapperList() {
+    public EmrDepartmentMapper buildEmrDepartmentMapper() {
         EmrDepartmentMapper mapper = getEmrDepartmentMapper();
-        assertNotNull(mapper);
-        assertEquals(EmrDepartmentMapperLazio.class,mapper.getClass());
         logger.debug("mapper "+mapper.getClass());
         String response = getJsonResponseEmrLazio();
         try {
             mapper.mapFromJson(response);
         } catch (Exception e) {
-            fail(e.getMessage());
+            logger.error("Error "+e.getMessage());
         }
         return mapper;
     }
@@ -61,19 +65,17 @@ public class TestUtil extends TestCase {
         return emrDataClient.getData(ConfigurationUtils.getUrlLazio());
     }
 
-    protected EmrAccessMapper buildEmrAccessMapper() {
+    public EmrAccessMapper buildEmrAccessMapper() {
         EmrAccessMapper mapper = getEmrAccessMapper();
-        assertNotNull(mapper);
-        assertEquals(EmrAccessMapperLazio.class,mapper.getClass());
+
         logger.debug("mapper "+mapper.getClass());
         String response = getJsonResponseEmrLazio();
         try {
             mapper.mapFromJson(response);
         } catch (Exception e) {
-            fail(e.getMessage());
+            logger.error("Error "+e.getMessage());
         }
         return mapper;
     }
-
 
 }

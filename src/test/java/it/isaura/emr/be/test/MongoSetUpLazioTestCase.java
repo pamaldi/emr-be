@@ -1,8 +1,7 @@
 package it.isaura.emr.be.test;
 
 import com.mongodb.client.MongoCursor;
-import it.isaura.emr.be.data.EmrDataClient;
-import it.isaura.emr.be.data.EmrLazioDataClient;
+import it.isaura.emr.be.facade.EmrFacade;
 import it.isaura.emr.be.mapper.EmrAccessMapper;
 import it.isaura.emr.be.mapper.EmrDepartmentMapper;
 import it.isaura.emr.be.model.EmrAccessInfo;
@@ -10,7 +9,6 @@ import it.isaura.emr.be.model.EmrDepartment;
 import it.isaura.emr.be.persistence.mongo.MongoPersistenceManager;
 import it.isaura.emr.be.persistence.mongo.MongoSession;
 import it.isaura.emr.be.utils.ConfigurationUtils;
-import it.isaura.emr.be.utils.GeneralUtils;
 import junit.framework.TestCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +20,7 @@ import java.util.Iterator;
 /**
  * Created by pasquale on 19/06/2016.
  */
-public class MongoSetUpLazioTestCase extends TestUtil {
+public class MongoSetUpLazioTestCase extends TestCase {
 
 
     final Logger logger = LogManager.getLogger("MongoSetUpLazioTestCase");
@@ -31,7 +29,7 @@ public class MongoSetUpLazioTestCase extends TestUtil {
     @Test
     public void testCreateCollectionEmrAddressesLazio(){
         logger.debug("createCollectionEmrAddressesLazio");
-        EmrDepartmentMapper emrDepartmentMapperList = getEmrDepartmentMapperList();
+        EmrDepartmentMapper emrDepartmentMapperList = EmrFacade.getInstance().buildEmrDepartmentMapper();
         MongoPersistenceManager mongoPersistenceManager = MongoPersistenceManager.getInstance();
         MongoSession mongoSession = mongoPersistenceManager.createSession(ConfigurationUtils.getMongoHost(),ConfigurationUtils.getMongoPort());
         assertNotNull(mongoSession);
@@ -61,13 +59,15 @@ public class MongoSetUpLazioTestCase extends TestUtil {
             fail(e.getMessage());
         }
 
+        mongoSession.release();
+
     }
 
 
     @Test
     public void testCreateCollectionEmrLazioAccess(){
         logger.debug("createCollectionEmrLazioAccess");
-        EmrAccessMapper emrAccessMapperList = getEmrAccessMapper();
+        EmrAccessMapper emrAccessMapperList = EmrFacade.getInstance().buildEmrAccessMapper();
         MongoPersistenceManager mongoPersistenceManager = MongoPersistenceManager.getInstance();
         MongoSession mongoSession = mongoPersistenceManager.createSession(ConfigurationUtils.getMongoHost(),ConfigurationUtils.getMongoPort());
         assertNotNull(mongoSession);
@@ -82,6 +82,7 @@ public class MongoSetUpLazioTestCase extends TestUtil {
             fail(e.getMessage());
         }
 
+        mongoSession.release();
 
 
     }

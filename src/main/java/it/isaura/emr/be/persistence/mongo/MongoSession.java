@@ -17,5 +17,6 @@ public interface MongoSession {
 
     void delete(String dbName, String collectionName, Document document) throws Exception;
 
+    public boolean release();
 
 }
